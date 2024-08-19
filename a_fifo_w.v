@@ -1,4 +1,42 @@
 
+module afifo_w(
+
+  input wclk
+  input wrst_n
+  input wclr
+  input winc //request 
+  input wdata
+
+  input rclk
+  input rst_n
+  input rclr
+  input rinc
+  input rdout 
+
+  output wfull
+  output wempty 
+  output wptr_bin
+  output ptr_bin_r2w 
+  output rdata
+  output  rfull
+  output rempty
+  output rptr_bin
+  output ptr_binw2r
+  output  waddr
+  output wcen
+  output wdin
+  output raddr
+  output rcen 
+
+
+
+
+
+
+
+
+
+
 module a_fifo_c(
 
 input clk
