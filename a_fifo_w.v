@@ -76,12 +76,26 @@ parameter addr_wodth = 5 ;
 
      assign ptr_gray_next = bin2gray(ptr_bin_next); 
 //     fifo full logic
-assign fifo_full_c = (ptr_bin_next                                                                                                              
-        
-  
-        
-  
+     assign fifo_full_c = (ptr_bin_next  == {~ptr_bin_other[addr_w], ptr_bin_other[addr-1:0]});
+                                                                                                                   
+           always @(posedge clk or negedge rst_n)
+            if (!rst_n)
+                  fifo_full <= 1'b0 ;
+          else if (fifo_clear)
+               fifo_full <= 1'b0 ;
+           else
+         fifo_full <= fifo_full_c;
+//fifo empty logic 
 
-
-
-
+     assign fifo_empty = (ptr_gray_next == ptr_gray_other);
+ always @(posdge clk or negedge rst_n)
+  if(!rst_n)
+  fifo_empty <= 1'b1;
+   else if(fifo_clear)
+ fifo_empty <= 1'b1; 
+  else
+  fifo_empty <= fifo_empty_c;
+                                                                    
+  assign fifo_cen = fifo_dir? (~fifo_inc | fifo_full):(~fifo_inc|fifo_empty);
+  assign fifo_addr = ptr[addr_w-1:0];
+   endmodule
